@@ -1,0 +1,174 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       Int       @id @default(autoincrement())
+  name     String
+  surname  String
+  email    String    @unique
+  password String
+  avatar   String?
+  color    String?
+  boards   Board[]   @relation("BoardToUser")
+  activities Activity[]
+  members   Member[]
+  cardMembers CardMember[]
+  watchers  Watcher[]
+}
+
+model Board {
+  id                Int          @id @default(autoincrement())
+  title             String
+  isImage           Boolean      @default(true)
+  backgroundImageLink String
+  activities        Activity[]
+  members           Member[]
+  lists             List[]
+  description       String       @default("")
+  createdAt         DateTime     @default(now())
+  updatedAt         DateTime     @updatedAt
+  ownerId           Int
+  owner             User         @relation("BoardToUser", fields: [ownerId], references: [id])
+}
+
+model Activity {
+  id            Int      @id @default(autoincrement())
+  userId        Int
+  user          User     @relation(fields: [userId], references: [id])
+  name          String
+  action        String
+  date          DateTime @default(now())
+  edited        Boolean  @default(false)
+  cardTitle     String   @default("")
+  actionType    String   @default("action")
+  color         String?
+  boardId       Int
+  board         Board    @relation(fields: [boardId], references: [id])
+}
+
+model Member {
+  id            Int      @id @default(autoincrement())
+  userId        Int
+  user          User     @relation(fields: [userId], references: [id])
+  name          String
+  surname       String
+  email         String
+  role          String   @default("member")
+  color         String?
+  boardId       Int
+  board         Board    @relation(fields: [boardId], references: [id])
+}
+
+model List {
+  id        Int     @id @default(autoincrement())
+  title     String
+  cards     Card[]
+  owner     Board   @relation(fields: [boardId], references: [id])
+  boardId   Int
+}
+
+model Card {
+  id            Int           @id @default(autoincrement())
+  title         String
+  description   String        @default("")
+  labels        Label[]
+  members       CardMember[]
+  watchers      Watcher[]
+  dateInfo      DateInfo?
+  attachments   Attachment[]
+  activityCards ActivityCard[]
+  owner         List          @relation(fields: [listId], references: [id])
+  listId        Int
+  cover         Cover?
+  checklists    Checklist[]
+}
+
+model Label {
+  id          Int     @id @default(autoincrement())
+  text        String?
+  color       String?
+  backColor   String?
+  selected    Boolean?
+  cardId      Int
+  card        Card    @relation(fields: [cardId], references: [id])
+}
+
+model CardMember {
+  id          Int     @id @default(autoincrement())
+  userId      Int
+  user        User    @relation(fields: [userId], references: [id])
+  name        String
+  color       String?
+  cardId      Int
+  card        Card    @relation(fields: [cardId], references: [id])
+}
+
+model Watcher {
+  id          Int     @id @default(autoincrement())
+  userId      Int
+  user        User    @relation(fields: [userId], references: [id])
+  name        String
+  cardId      Int
+  card        Card    @relation(fields: [cardId], references: [id])
+}
+
+model DateInfo {
+  id          Int      @id @default(autoincrement())
+  startDate   DateTime?
+  dueDate     DateTime?
+  dueTime     String?
+  reminder    Boolean?
+  completed   Boolean   @default(false)
+  cardId      Int       @unique
+  card        Card      @relation(fields: [cardId], references: [id])
+}
+
+model Attachment {
+  id          Int      @id @default(autoincrement())
+  link        String
+  name        String?
+  date        DateTime @default(now())
+  cardId      Int
+  card        Card      @relation(fields: [cardId], references: [id])
+}
+
+model ActivityCard {
+  id          Int      @id @default(autoincrement())
+  userName    String
+  text        String
+  date        DateTime @default(now())
+  isComment   Boolean  @default(false)
+  color       String?
+  cardId      Int
+  card        Card      @relation(fields: [cardId], references: [id])
+}
+
+model Cover {
+  id          Int      @id @default(autoincrement())
+  color       String?
+  isSizeOne   Boolean?
+  cardId      Int       @unique
+  card        Card      @relation(fields: [cardId], references: [id])
+}
+
+model Checklist {
+  id          Int      @id @default(autoincrement())
+  title       String
+  items       ChecklistItem[]
+  cardId      Int
+  card        Card      @relation(fields: [cardId], references: [id])
+}
+
+model ChecklistItem {
+  id          Int      @id @default(autoincrement())
+  text        String
+  completed   Boolean  @default(false)
+  checklistId Int
+  checklist   Checklist @relation(fields: [checklistId], references: [id])
+}
