@@ -1,16 +1,14 @@
 const mongoose = require('mongoose');
 const workspaceSchema = mongoose.Schema(
 	{
-		
-		
         title: {
             type: String,
             required: true,
         },
-        borads: [
+        boards: [
 			{
 				type: mongoose.Schema.Types.ObjectId,
-				ref: 'borad',
+				ref: 'board',
 			},
 		], 
         members: [
@@ -69,6 +67,7 @@ const workspaceSchema = mongoose.Schema(
 					type: String,
 				},
 			},
-		],
-} ,);
+		]
+		
+} ,{ timestamps: true });
         module.exports = mongoose.model('workspace', workspaceSchema);

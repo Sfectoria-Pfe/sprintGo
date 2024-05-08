@@ -39,11 +39,14 @@ mongoose
 	})
 	.then(() => {
 		console.log('Database connection is succesfull!');
+		
 	})
 	.catch((err) => {
 		console.log(`Database connection failed!`);
 		console.log(`Details : ${err}`);
 	});
+
+	
 
 //ROUTES
 

@@ -1,4 +1,4 @@
-const { findOne } = require('../Models/boardModel');
+
 const boardModel = require('../Models/boardModel');
 const userModel = require('../Models/userModel');
 
