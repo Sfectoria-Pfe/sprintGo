@@ -3,7 +3,7 @@ const workSpaceService = require('../Services/Workspaceservice');
 const create = async (req, res) => {
 	const { title } = req.body;
 	if (!(title ))
-		return res.status(400).send({ errMessage: 'Title and/or image cannot be null' });
+		return res.status(400).send({ errMessage: 'Title cannot be null' });
 	await workSpaceService.create(req, (err, result) => {
 		if (err) return res.status(500).send(err);
 		result.__v = undefined;
@@ -86,7 +86,6 @@ module.exports = {
 	getById,
 	getActivityById,
 	updateworkSpaceTitle,
-	
-	
+
 	addMember,
 };

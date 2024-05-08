@@ -1,184 +1,177 @@
-const { findOne } = require("../Models/workSpaceModel");
-const WorkspaceModel = require("../Models/workSpaceModel");
-const userModel = require("../Models/userModel");
+
+const WorkSpaceModel = require('../Models/WorkSpaceModel');
+const userModel = require('../Models/userModel');
 
 const create = async (req, callback) => {
-  try {
-    const { title, ID, members } = req.body;
-    // Create and save new Workspace
-    let newWorkspace = WorkspaceModel({ title, ID, members });
-    newWorkspace.save();
+	try {
+		const { title, members } = req.body;
+		// Create and save new WorkSpace
+		let newWorkSpace = WorkSpaceModel({ title});
+		newWorkSpace.save();
 
-    const user = await userModel.findById(req.user.id);
-    user.Workspaces?.unshift(newWorkspace.id);
-    await user.save();
+		// Add this WorkSpace to owner's workSpaces
+		const user = await userModel.findById(req.user.id);
+		user?.workSpaces?.unshift(newWorkSpace.id);
+		await user.save();
 
-    // Add user to members of this Workspace
-    let allMembers = [];
-    allMembers.push({
-      user: user.id,
-      name: user.name,
-      surname: user.surname,
-      email: user.email,
-      color: user.color,
-      role: "owner",
-    });
-    await Promise.all(
-      members?.map(async (member) => {
-        const newMember = await userModel.findOne({ email: member.email });
-        newMember.Workspaces.push(newWorkspace._id);
-        await newMember.save();
-        allMembers.push({
-          user: newMember._id,
-          name: newMember.name,
-          surname: newMember.surname,
-          email: newMember.email,
-          color: newMember.color,
-          role: "member",
-        });
-        newWorkspace.activity.push({
-          user: user.id,
-          name: user.name,
-          action: `added user '${newMember.name}' to this Workspace`,
-        });
-      })
-    );
-    newWorkspace.activity?.unshift({
-      user: user._id,
-      name: user.name,
-      action: "created this workspace",
-      color: user.color,
-    });
+		// Add user to members of this WorkSpace
+		let allMembers = [];
+		allMembers?.push({
+			user: user.id,
+			name: user.name,
+			surname: user.surname,
+			email: user.email,
+			color: user.color,
+			role: 'owner',
+		});
 
-    // Save new Workspace
-    newWorkspace.members = allMembers;
-    await newWorkspace.save();
+		// Save newWorkSpace's id to workSpaces of members and,
+		// Add ids of members to newWorkSpace
+		await Promise.all(
+			members?.map(async (member) => {
+				const newMember = await userModel.findOne({ email: member.email });
+				newMember.workSpaces?.push(newWorkSpace._id);
+				await newMember.save();
+				allMembers.push({
+					user: newMember._id,
+					name: newMember.name,
+					surname: newMember.surname,
+					email: newMember.email,
+					color: newMember.color,
+					role: 'member',
+				});
+				//Add to WorkSpace activity
+				newWorkSpace.activity?.push({
+					user: user.id,
+					name: user.name,
+					action: `added user '${newMember.name}' to this WorkSpace`,
+				});
+			})
+		);
 
-    return callback(false, newWorkspace);
-  } catch (error) {
-    return callback({
-      errMessage: "Something went wrong",
-      details: error.message,
-    });
-  }
+		// Add created activity to activities of this WorkSpace
+		newWorkSpace?.activity?.unshift({ user: user._id, name: user.name, action: 'created this WorkSpace', color: user.color });
+
+		// Save new WorkSpace
+		newWorkSpace.members = allMembers;
+		await newWorkSpace.save();
+
+		return callback(false, newWorkSpace);
+	} catch (error) {
+		return callback({
+			errMessage: 'Something went wrong',
+			details: error.message,
+		});
+	}
 };
+
 const getAll = async (userId, callback) => {
-  try {
-    // Get user
-    const user = await userModel.findById(userId);
+	try {
+		// Get user
+		const user = await userModel.findById(userId);
 
-    // Get Workspace's ids of user
-    const Workspace = user.Workspaces;
+		// Get WorkSpace's ids of user
+		const WorkSpaceIds = user.workSpaces;
 
-    // Get Workspaces of user
-    const Workspaces = await WorkspaceModel.find({
-      _id: { $in: WorkspaceIds },
-    });
+		// Get workSpaces of user
+		const workSpaces = await WorkSpaceModel.find({ _id: { $in: WorkSpaceIds } });
 
-    // Delete unneccesary objects
-    Workspaces.forEach((Workspace) => {
-      Workspace.activity = undefined;
-      Workspace.boards = undefined;
-    });
+		// Delete unneccesary objects
+		workSpaces.forEach((WorkSpace) => {
+			WorkSpace.activity = undefined;
+			WorkSpace.boards = undefined;
+		});
 
-    return callback(false, Workspaces);
-  } catch (error) {
-    return callback({ msg: "Something went wrong", details: error.message });
-  }
+		return callback(false, workSpaces);
+	} catch (error) {
+		return callback({ msg: 'Something went wrong', details: error.message });
+	}
 };
+
 const getById = async (id, callback) => {
-  try {
-    // Get Workspace by id
-    const Workspace = await WorkspaceModel.findById(id);
-    return callback(false, Workspace);
-  } catch (error) {
-    return callback({
-      message: "Something went wrong",
-      details: error.message,
-    });
-  }
+	try {
+		// Get WorkSpace by id
+		const WorkSpace = await WorkSpaceModel.findById(id);
+		return callback(false, WorkSpace);
+	} catch (error) {
+		return callback({ message: 'Something went wrong', details: error.message });
+	}
 };
 
 const getActivityById = async (id, callback) => {
-  try {
-    // Get Workspace by id
-    const Workspace = await WorkspaceModel.findById(id);
-    return callback(false, Workspace.activity);
-  } catch (error) {
-    return callback({
-      message: "Something went wrong",
-      details: error.message,
-    });
-  }
+	try {
+		// Get WorkSpace by id
+		const WorkSpace = await WorkSpaceModel.findById(id);
+		return callback(false, WorkSpace.activity);
+	} catch (error) {
+		return callback({ message: 'Something went wrong', details: error.message });
+	}
 };
 
-const updateWorkspaceTitle = async (WorkspaceId, title, user, callback) => {
-  try {
-    // Get Workspace by id
-    const Workspace = await WorkspaceModel.findById(WorkspaceId);
-    Workspace.title = title;
-    Workspace.activity?.unshift({
-      user: user._id,
-      name: user.name,
-      action: "update title of this Workspace",
-      color: user.color,
-    });
-    await Workspace.save();
-    return callback(false, { message: "Success!" });
-  } catch (error) {
-    return callback({
-      message: "Something went wrong",
-      details: error.message,
-    });
-  }
+const updateWorkSpaceTitle = async (WorkSpaceId, title, user, callback) => {
+	try {
+		// Get WorkSpace by id
+		const WorkSpace = await WorkSpaceModel.findById(WorkSpaceId);
+		WorkSpace.title = title;
+		WorkSpace.activity.unshift({
+			user: user._id,
+			name: user.name,
+			action: 'update title of this WorkSpace',
+			color: user.color,
+		});
+		await WorkSpace.save();
+		return callback(false, { message: 'Success!' });
+	} catch (error) {
+		return callback({ message: 'Something went wrong', details: error.message });
+	}
 };
+
+
+
 
 const addMember = async (id, members, user, callback) => {
-  try {
-    // Get Workspace by id
-    const Workspace = await WorkspaceModel.findById(id);
+	try {
+		// Get WorkSpace by id
+		const WorkSpace = await WorkSpaceModel.findById(id);
 
-    // Set variables
-    await Promise.all(
-      members?.map(async (member) => {
-        const newMember = await userModel.findOne({ email: member.email });
-        newMember.Workspaces.push(Workspace._id);
-        await newMember.save();
-        Workspace.members.push({
-          user: newMember._id,
-          name: newMember.name,
-          surname: newMember.surname,
-          email: newMember.email,
-          color: newMember.color,
-          role: "member",
-        });
-        //Add to Workspace activity
-        Workspace.activity.push({
-          user: user.id,
-          name: user.name,
-          action: `added user '${newMember.name}' to this Workspace`,
-          color: user.color,
-        });
-      })
-    );
-    // Save changes
-    await Workspace.save();
+		// Set variables
+		await Promise.all(
+			members.map(async (member) => {
+				const newMember = await userModel.findOne({ email: member.email });
+				newMember.workSpaces.push(WorkSpace._id);
+				await newMember.save();
+				WorkSpace.members.push({
+					user: newMember._id,
+					name: newMember.name,
+					surname: newMember.surname,
+					email: newMember.email,
+					color: newMember.color,
+					role: 'member',
+				});
+				//Add to WorkSpace activity
+				WorkSpace.activity.push({
+					user: user.id,
+					name: user.name,
+					action: `added user '${newMember.name}' to this WorkSpace`,
+					color: user.color,
+				});
+			})
+		);
+		// Save changes
+		await WorkSpace.save();
 
-    return callback(false, Workspace.members);
-  } catch (error) {
-    return callback({
-      message: "Something went wrong",
-      details: error.message,
-    });
-  }
+		return callback(false, WorkSpace.members);
+	} catch (error) {
+		return callback({ message: 'Something went wrong', details: error.message });
+	}
 };
 
 module.exports = {
-  create,
-  getAll,
-  getById,
-  getActivityById,
-  updateWorkspaceTitle,
+	create,
+	getAll,
+	getById,
+	getActivityById,
+	updateWorkSpaceTitle,
 
-  addMember,
+	addMember,
 };

@@ -87,7 +87,9 @@ const Navbar = (props) => {
 						onClick={() => {
 							navigate('/');
 						}}
-						src='https://a.trellocdn.com/prgb/dist/images/header-logo-spirit-loading.87e1af770a49ce8e84e3.gif'
+						src=''
+						alt='Logo'
+						// https://a.trellocdn.com/prgb/dist/images/header-logo-spirit-loading.87e1af770a49ce8e84e3.gif
 					/>
 				</LogoContainer>
 				<DropdownContainer style={{paddingLeft:"150px"}}>

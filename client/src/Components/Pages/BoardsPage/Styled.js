@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-	background-image: url('https://trello-backgrounds.s3.amazonaws.com/SharedBackground/2400x1600/a651551a5214cb84963366cf9eaacb40/photo-1636207543865-acf3ad382295.jpg');
+	background-image: url('https://img.freepik.com/photos-premium/surface-texture-pierre-blanche-ton-gris-blanc-rugueux-utilisez-ceci-pour-fond-ecran-image-arriere-plan-il-y-espace-vide-pour-textx9_661047-1080.jpg?w=900');
 	background-position: 50%;
 	background-size: cover;
 	height: 100vh;

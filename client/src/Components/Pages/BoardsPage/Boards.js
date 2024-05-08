@@ -32,7 +32,7 @@ const Boards = () => {
 
   return (
     <>
-      {pending && <LoadingScreen />}
+      {/* {pending && <LoadingScreen />} */}
       <Container  >        
      
 

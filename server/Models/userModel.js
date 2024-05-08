@@ -30,6 +30,12 @@ const userSchema = mongoose.Schema({
 			ref: 'board',
 		},
 	],
+	workSpaces: [
+		{
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'workspace',
+		},
+	],
 });
 
 module.exports = mongoose.model('user', userSchema);
