@@ -14,6 +14,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Sidebar from "./Components/sidebar/sidebar";
 import Main from "./Main";
 import { useSelector } from "react-redux";
+import Workspaces from "./Components/Pages/WorkspacesPage/Workspaces"
+import  Workspace  from "./Components/Pages/WorkspacesPage/Workspaces";
 
 const App = () => {
   const [token, setToken] = useState("");
@@ -32,7 +34,10 @@ const App = () => {
       <Routes>
         {user?.isAuthenticated ? (
           <Route path="/" element={<Main />}>
-            <Route index element={<Boards />} />
+            <Route index element={<Workspaces />} />
+            <Route path="/boards" element={<Boards />} />
+            <Route path="/workspace" element={<Workspaces />} />
+            <Route path="/workspace/:id" element={<Boards />} />
             <Route path="board/:id" element={<Board />} />
           </Route>
         ) : (

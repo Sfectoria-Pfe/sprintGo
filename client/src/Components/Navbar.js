@@ -7,6 +7,7 @@ import ProfileBox from './ProfileBox';
 import { useNavigate } from 'react-router-dom';
 import Sidebar from './sidebar/sidebar';
 import CreateBoard from './Modals/CreateBoardModal/CreateBoard';
+import sprintgo from "../Images/sprintgo2.gif"
 
 const Container = styled.div`
 	height: 3rem;
@@ -87,7 +88,7 @@ const Navbar = (props) => {
 						onClick={() => {
 							navigate('/');
 						}}
-						src=''
+						src={sprintgo}
 						alt='Logo'
 						// https://a.trellocdn.com/prgb/dist/images/header-logo-spirit-loading.87e1af770a49ce8e84e3.gif
 					/>

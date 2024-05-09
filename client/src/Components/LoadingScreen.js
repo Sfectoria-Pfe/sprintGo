@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Backdrop from '@mui/material/Backdrop';
 import styled from 'styled-components';
+import sprintgo from "../Images/sprintgo2.gif"
 const Icon = styled.img`
 	width: 10vw;
 `;
@@ -17,7 +18,7 @@ export default function LoadingScreen() {
 				open={open}
 				//onClick={handleClose}
 			>
-				<Icon src='https://a.trellocdn.com/prgb/dist/images/header-logo-spirit-loading.87e1af770a49ce8e84e3.gif' />
+				<Icon src={sprintgo} />
 			</Backdrop>
 		</div>
 	);

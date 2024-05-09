@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-
+import bg from "../../../Images/bg.jpg"
 export const Container = styled.div`
 	background-image: url('https://img.freepik.com/photos-premium/surface-texture-pierre-blanche-ton-gris-blanc-rugueux-utilisez-ceci-pour-fond-ecran-image-arriere-plan-il-y-espace-vide-pour-textx9_661047-1080.jpg?w=900');
 	background-position: 50%;
@@ -39,15 +39,15 @@ export const Wrapper = styled.div`
 	overflow-y: auto;
 `;
 
-export const Board = styled.div`
+export const Workspace = styled.div`
 	color: white;
 	padding: 0.6rem;
 	margin: 0 0.8rem 1rem 0.8rem;
 	width: 200px;
 	height: 120px;
 	border-radius: 5px;
-	${(props) =>
-		props.isImage ? 'background-image: url(' + props.link + ');' : 'background-color: ' + props.link + ';'}
+	background-image: url(${bg});
+	 background-color: '';
 
 	background-position: center center;
 	background-size: cover;
@@ -65,7 +65,7 @@ export const Board = styled.div`
 	}
 `;
 
-export const AddBoard = styled(Board)`
+export const AddWorkspace = styled(Workspace)`
 	background-color: transparent;
 	background-image: linear-gradient(to right, #0b486b 0%, #f56217 51%, #0b486b 100%);
 	font-size: 1.2rem;

@@ -34,6 +34,8 @@ import { closeSidebar } from "./utils";
 import { CssVarsProvider } from "@mui/joy/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { getBoards } from "../../Services/boardsService";
+import { Link } from 'react-router-dom';
+
 
 function Toggler({ defaultExpanded = false, renderToggle, children }) {
   const [open, setOpen] = React.useState(defaultExpanded);
@@ -62,6 +64,11 @@ export default function Sidebar() {
   const boardsData = useSelector((state) => state.boards.boardsData);
   console.log(boardsData, "this is boards data");
 
+  const [selectedItemId, setSelectedItemId] = React.useState(null);
+
+  const handleItemClick = (id) => {
+    setSelectedItemId(id);
+  };
   React.useEffect(() => {
     getBoards(true, dispatch);
   }, [dispatch]);
@@ -154,25 +161,31 @@ export default function Sidebar() {
           }}
         >
           <ListItem>
-            <ListItemButton>
+            <ListItemButton onClick={() => handleItemClick('workspaces')}
+          selected={selectedItemId === 'workspaces'}>
               <HomeRoundedIcon />
               <ListItemContent>
-                <Typography level="title-sm">Home</Typography>
+                <Typography level="title-sm" component={Link}
+        to="/workspace">Workspaces</Typography>
               </ListItemContent>
             </ListItemButton>
           </ListItem>
 
           <ListItem>
-            <ListItemButton>
+            <ListItemButton onClick={() => handleItemClick('boards')}
+          selected={selectedItemId === 'boards'}>
               <DashboardRoundedIcon />
-              <ListItemContent>
-                <Typography level="title-sm">Dashboard</Typography>
+              <ListItemContent >
+                <Typography level="title-sm"component={Link}
+        to="/boards"
+              href="/boards">Dashboard</Typography>
               </ListItemContent>
             </ListItemButton>
           </ListItem>
-
+       
           <ListItem>
-            <ListItemButton selected>
+            <ListItemButton onClick={() => handleItemClick('orders')}
+          selected={selectedItemId === 'orders'}>
               <ShoppingCartRoundedIcon />
               <ListItemContent>
                 <Typography level="title-sm">Orders</Typography>
@@ -219,7 +232,7 @@ export default function Sidebar() {
             <ListItemButton
               role="menuitem"
               component="a"
-              href="/joy-ui/getting-started/templates/messages/"
+              href="/aaaaaaaaaaaaaaaaaaaaaa"
             >
               <QuestionAnswerRoundedIcon />
               <ListItemContent>

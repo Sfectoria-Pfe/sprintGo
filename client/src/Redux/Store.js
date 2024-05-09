@@ -7,6 +7,8 @@ import listReducer from "./Slices/listSlice";
 import cardReducer from "./Slices/cardSlice";
 import refreshSidebar from "./Slices/refreshSidebar";
 import themeSliceReducer from "./Slices/themeSlice";
+import workspacesReducer from "./Slices/workspacesSlice";
+import workspaceReducer from "./Slices/boardSlice"
 
 const Store = configureStore({
     reducer : {
@@ -18,6 +20,9 @@ const Store = configureStore({
         card: cardReducer,
         refreshKey: refreshSidebar,
         themeKey: themeSliceReducer,
+         workspaces: workspacesReducer,
+        workspace: workspaceReducer,
+         
     },
 }) 
 export default Store;
