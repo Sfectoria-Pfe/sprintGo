@@ -1,4 +1,4 @@
-import LoadingScreen from "../../LoadingScreen";
+
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getBoards } from "../../../Services/boardsService";
@@ -7,7 +7,19 @@ import { Container, Wrapper, Title, Board, AddBoard } from "./Styled";
 import CreateBoard from "../../Modals/CreateBoardModal/CreateBoard";
 import Sidebar from "../../sidebar/sidebar";
 import { useNavigate } from "react-router-dom";
+import LoadingScreen from "../../LoadingScreen";
+import { useParams } from 'react-router-dom';
 
+export function WorkspaceId() {
+  const { workspaceId } = useParams();
+  console.log("Workspace ID:", workspaceId);
+
+  return (
+    <>
+      <h1>Workspace ID: {workspaceId}</h1>
+    </>
+  );
+}
 
 const Boards = () => {
   const navigate = useNavigate()
@@ -17,6 +29,8 @@ const Boards = () => {
   
   const [searchString, setSearchString] = useState('');
 
+  const { workspaceId } = useParams();
+  console.log("Workspace ID:", workspaceId);
 
   const handleClick = (e) => {
   navigate(`/board/${e.target.id}`)
@@ -32,14 +46,15 @@ const Boards = () => {
 
   return (
     <>
-      {/* {pending && <LoadingScreen />} */}
+      {pending && <LoadingScreen />}
       <Container  >        
      
 
         <Navbar  searchString={searchString} setSearchString={setSearchString} />
         <Wrapper>
        
-          <Title>Your Boards</Title>
+          <Title>All Boards</Title>
+          
         
           {!pending &&
             boardsData.length>0 &&

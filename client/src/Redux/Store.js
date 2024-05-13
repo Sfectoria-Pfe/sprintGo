@@ -7,17 +7,26 @@ import listReducer from "./Slices/listSlice";
 import cardReducer from "./Slices/cardSlice";
 import refreshSidebar from "./Slices/refreshSidebar";
 import themeSliceReducer from "./Slices/themeSlice";
+import workspacesReducer from "./Slices/workspacesSlice";
+import workspaceReducer from "./Slices/boardSlice"
+import boardsWorkspaceSlice from "./Slices/boardsWorkspaceSlice"
 
 const Store = configureStore({
     reducer : {
         user: userReducer,
         alert: alertReducer,
+        Wboards: boardsWorkspaceSlice,
         boards: boardsReducer,
         board: boardReducer,
         list: listReducer,
         card: cardReducer,
         refreshKey: refreshSidebar,
+       
         themeKey: themeSliceReducer,
+         workspaces: workspacesReducer,
+        workspace: workspaceReducer,
+      
+         
     },
 }) 
 export default Store;

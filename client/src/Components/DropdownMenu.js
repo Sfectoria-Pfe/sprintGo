@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { getBoards } from '../Services/boardsService';
 import CardLoadingSvg from '../Images/cardLoading.svg';
+import { getWorkspaces } from '../Services/workSpacesService';
 
 const BootstrapButton = styled(Button)({
 	boxShadow: 'none',
@@ -51,7 +52,7 @@ const StyledIcon = styled(DownIcon)({
 });
 
 export default function DropdownMenu(props) {
-	const boardsData = useSelector((state) => state.boards.boardsData);
+	const workspacesData = useSelector((state) => state.workspaces.workspacesData);
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const [anchorEl, setAnchorEl] = React.useState(null);
@@ -86,7 +87,7 @@ export default function DropdownMenu(props) {
 					<StyledIcon />
 				</Span>
 			</BootstrapButton>
-			{Object.keys(boardsData).length > 0 && (
+			{Object.keys(workspacesData).length > 0 && (
 				<Menu
 					id='demo-positioned-menu'
 					aria-labelledby='demo-positioned-button'
@@ -103,13 +104,13 @@ export default function DropdownMenu(props) {
 					}}
 				>
 					{!loading ? (
-						boardsData.map((item) => {
+						workspacesData.map((item) => {
 							return (
 								<MenuItem
 									key={item._id}
 									onClick={() => {
 										setAnchorEl(null);
-										navigate('/board/' + item._id);
+										navigate('/workspace/' + item._id);
 									}}
 								>
 									<Span>{item.title}</Span>

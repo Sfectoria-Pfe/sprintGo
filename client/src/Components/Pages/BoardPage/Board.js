@@ -69,7 +69,7 @@ const Board = (props) => {
 				bgImage={isImage ? backgroundImageLink.split('?')[0] : backgroundImageLink}
 			>
 				<TopBar />
-				{/* {(loading || loadingListService) && <LoadingScreen />} */}
+				{(loading || loadingListService) && <LoadingScreen />}
 				<DragDropContext onDragEnd={onDragEnd}>
 					<Droppable droppableId='all-columns' direction='horizontal' type='column'>
 						{(provided, snapshot) => {

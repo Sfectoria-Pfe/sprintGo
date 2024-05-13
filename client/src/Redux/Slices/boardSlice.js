@@ -11,6 +11,7 @@ const initialState = {
 	loading: true,
 	description: '',
 	activityLoading: false,
+	allBoards: [],
 };
 
 const boardSlice = createSlice({
@@ -49,7 +50,13 @@ const boardSlice = createSlice({
 		},
 		addMembers: (state,action)=>{
 			state.members = action.payload;
-		}
+		},
+		successCreatingboard: (state, action) => {
+			state.allBoards.push(action.payload);
+		},
+		successDeletingboard: (state, action) => {
+			state.allBoards = state.allBoards.filter((board) => board._id !== action.payload);
+		},
 	},
 });
 
@@ -62,5 +69,7 @@ export const {
 	updateDescription,
 	updateBackground,
 	addMembers,
+	successCreatingboard,
+	successDeletingboard,
 } = boardSlice.actions;
 export default boardSlice.reducer;

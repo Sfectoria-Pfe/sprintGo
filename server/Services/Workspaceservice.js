@@ -1,5 +1,5 @@
 
-const WorkSpaceModel = require('../Models/WorkSpaceModel');
+const WorkSpaceModel = require('../Models/workSpaceModel');
 const userModel = require('../Models/userModel');
 
 const create = async (req, callback) => {
@@ -126,7 +126,42 @@ const updateWorkSpaceTitle = async (WorkSpaceId, title, user, callback) => {
 	}
 };
 
+// const deleteById = async (boardId, workspaceId, user, callback) => {
+// 	try {
+// 		// Get board to check the parent of board is this board
+// 		const workspace = await workspaceModel.findById(workspaceId);
 
+// 		// Validate the parent of the board
+// 		const validate = workspace.boards.filter((board) => board.id === boardId);
+// 		if (!validate) return callback({ errMessage: 'board or workspace informations are wrong' });
+
+// 		// Validate whether the owner of the board is the user who sent the request.
+// 		if (!user.workspace.filter((workspace) => workspace === workspaceId))
+// 			return callback({ errMessage: 'You cannot delete a board that does not hosted by your boards' });
+
+// 		// Delete the board
+// 		const result = await boardModel.findByIdAndDelete(boardId);
+
+// 		// Delete the board from boards of board
+// 		workspace.boards = workspace.boards.filter((board) => board.toString() !== boardId);
+
+// 		// Add activity log to board
+// 		workspace.activity.unshift({
+// 			user: user._id,
+// 			name: user.name,
+// 			action: `deleted ${result.title} from this board`,
+// 			color: user.color,
+// 		});
+// 		workspace.save();
+
+// 		// Delete all cars in the board
+// 		await cardModel.deleteMany({ owner: boardId });
+
+// 		return callback(false, result);
+// 	} catch (error) {
+// 		return callback({ errMessage: 'Something went wrong', details: error.message });
+// 	}
+// };
 
 
 const addMember = async (id, members, user, callback) => {
@@ -164,6 +199,7 @@ const addMember = async (id, members, user, callback) => {
 	} catch (error) {
 		return callback({ message: 'Something went wrong', details: error.message });
 	}
+	
 };
 
 module.exports = {
