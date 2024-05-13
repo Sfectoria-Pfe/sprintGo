@@ -62,6 +62,8 @@ function Toggler({ defaultExpanded = false, renderToggle, children }) {
 export default function Sidebar() {
   const dispatch = useDispatch();
   const boardsData = useSelector((state) => state.boards.boardsData);
+  const info = useSelector((state) => state.user.userInfo);
+
   console.log(boardsData, "this is boards data");
 
   const [selectedItemId, setSelectedItemId] = React.useState(null);
@@ -232,7 +234,7 @@ export default function Sidebar() {
             <ListItemButton
               role="menuitem"
               component="a"
-              href="/aaaaaaaaaaaaaaaaaaaaaa"
+              href="/chat"
             >
               <QuestionAnswerRoundedIcon />
               <ListItemContent>
@@ -244,7 +246,7 @@ export default function Sidebar() {
             </ListItemButton>
           </ListItem>
 
-          <ListItem nested>
+          {info?.role==="admin"&&<ListItem nested>
             <Toggler
               renderToggle={({ open, setOpen }) => (
                 <ListItemButton onClick={() => setOpen(!open)}>
@@ -263,20 +265,23 @@ export default function Sidebar() {
                   <ListItemButton
                     role="menuitem"
                     component="a"
-                    href="/joy-ui/getting-started/templates/profile-dashboard/"
+                    href="/create"
                   >
-                    My profile
+                    Create a new user
                   </ListItemButton>
                 </ListItem>
                 <ListItem>
-                  <ListItemButton>Create a new user</ListItemButton>
+                  <ListItemButton
+                  role="menuitem"
+                    component="a"
+                    href="/manage"
+                  
+                  >Manage Users</ListItemButton>
                 </ListItem>
-                <ListItem>
-                  <ListItemButton>Roles & permission</ListItemButton>
-                </ListItem>
+                
               </List>
             </Toggler>
-          </ListItem>
+          </ListItem>}
         </List>
 
         <List
