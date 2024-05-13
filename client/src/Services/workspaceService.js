@@ -9,7 +9,10 @@ import {
 } from '../Redux/Slices/boardSlice';
 import { openAlert } from '../Redux/Slices/alertSlice';
 import { addMembers, setActivityLoading, updateActivity, updateBackground, updateDescription } from '../Redux/Slices/workspaceSlice';
-
+import {
+	updateTitle as updateTitlew
+} from '../Redux/Slices/workspaceSlice'
+import { successCreatingworkspace ,successDeletingworkspace } from '../Redux/Slices/workspaceSlice';
 const boardRoute = 'http://localhost:3001/board';
 const workspaceRoute = 'http://localhost:3001/workspace';
 
@@ -96,6 +99,39 @@ export const boardTitleUpdate = async (boardId, workspaceId, title, dispatch) =>
 		);
 	}
 };
+
+export const workspaceTitleUpdate = async (  title,workspaceId, dispatch) => {
+	try {
+		await dispatch(updateTitlew({ workspaceId: workspaceId, title: title }));
+		await axios.put(workspaceRoute + '/' + workspaceId + '/' , 'update-workSpace-title', { title: title });
+	} catch (error) {
+		dispatch(
+			openAlert({
+				message: error?.response?.data?.errMessage ? error.response.data.errMessage : error.message,
+				severity: 'error',
+			})
+		);
+	}
+};
+
+
+export const Deleteworkspace = async (workSpaceId, dispatch) => {
+	dispatch(setLoading(true));
+	try {
+	  await axios.delete(workspaceRoute + '/' + workSpaceId+'/delete');
+	  console.log("Done deleted")
+	  await dispatch(successDeletingworkspace(workSpaceId));
+	  dispatch(setLoading(false));
+	} catch (error) {
+	  dispatch(setLoading(false));
+	  dispatch(
+		openAlert({
+		  message: error?.response?.data?.errMessage ? error.response.data.errMessage : error.message,
+		  severity: 'error',
+		})
+	  );
+	}
+  };
 
 
 

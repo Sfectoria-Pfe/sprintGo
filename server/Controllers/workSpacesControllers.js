@@ -79,13 +79,23 @@ const addMember = async (req, res) => {
 		return res.status(200).send(result);
 	});
 };
+const deleteById = async (req, res) => {
+	// deconstruct the params
+	const user = req.user;
+	const { workspaceId } = req.params;
 
+	// Call the card service
+	await workSpaceService.deleteById(workspaceId,   user, (err, result) => {
+		if (err) return res.status(500).send(err);
+		return res.status(200).send(result);
+	});
+};
 module.exports = {
 	create,
 	getAll,
 	getById,
 	getActivityById,
 	updateworkSpaceTitle,
-
+	deleteById,
 	addMember,
 };

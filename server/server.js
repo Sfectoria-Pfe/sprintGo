@@ -58,7 +58,7 @@ app.use('/user', userRoute);
 app.use('/board', boardRoute);
 app.use('/list', listRoute);
 app.use('/card', cardRoute);
-app.use('/workSpace', workSpaceRoute );
+app.use('/workspace', workSpaceRoute );
 app.use('/boardw',board_workspaceRoute)
 app.use('/chat', ChatRoute)
 app.use('/message', MessageRoute)

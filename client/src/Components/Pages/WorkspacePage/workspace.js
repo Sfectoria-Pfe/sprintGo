@@ -8,6 +8,7 @@ import CreateBoard from "../../Modals/CreateBoardModal/CreateBoard";
 import Sidebar from "../../sidebar/sidebar";
 import { useNavigate } from "react-router-dom";
 import LoadingScreen from "../../LoadingScreen";
+import TopBar from "./TopBar/TopBar"
 
 const Boards = () => {
   const navigate = useNavigate()
@@ -37,6 +38,7 @@ const Boards = () => {
      
 
         <Navbar  searchString={searchString} setSearchString={setSearchString} />
+        <TopBar />
         <Wrapper>
        
           <Title>Your Boards</Title>

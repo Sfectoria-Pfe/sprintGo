@@ -10,5 +10,5 @@ route.post('/:workspaceId/create', boardController.create);
 route.get('/:id', boardController.getById);
 route.get('/:id/activity', boardController.getActivityById);
 route.get('/:workspaceId/get', boardController.getAll);
-
+route.delete('/:boardId/delete', boardController.deleteById)
 module.exports = route;

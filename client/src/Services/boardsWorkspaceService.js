@@ -7,10 +7,12 @@ import {
   successCreatingBoard,
   failCreatingBoard,
   startCreatingBoard,
+  
 } from "../Redux/Slices/boardsWorkspaceSlice";
+import { successDeletingboard } from "../Redux/Slices/boardSlice";
 import { addNewBoard } from "../Redux/Slices/userSlice";
 import {setLoading, successFetchingBoard, updateTitle} from "../Redux/Slices/boardSlice";
-const baseUrl = "http://localhost:3001/board";
+const baseUrl = "http://localhost:3001/boardw";
 
 
 export const getBoardsW = async (id, fromDropDown,dispatch) => {
@@ -106,5 +108,22 @@ export const boardTitleUpdate = async (title, boardId, dispatch) => {
 		);
 	}
 
+};
 
+export const Deleteboard = async (boardId, dispatch) => {
+  dispatch(setLoading(true));
+  try {
+    await axios.delete(baseUrl + '/' + boardId+'/delete');
+    console.log("Done deleted")
+    await dispatch(successDeletingboard(boardId));
+    dispatch(setLoading(false));
+  } catch (error) {
+    dispatch(setLoading(false));
+    dispatch(
+      openAlert({
+        message: error?.response?.data?.errMessage ? error.response.data.errMessage : error.message,
+        severity: 'error',
+      })
+    );
+  }
 };
