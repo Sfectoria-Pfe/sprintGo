@@ -8,5 +8,6 @@ route.post('/create', workSpaceController.create);
 route.get('/:id', workSpaceController.getById);
 route.get('/:id/activity', workSpaceController.getActivityById);
 route.get('/', workSpaceController.getAll);
+route.delete('/:workspaceId/delete',workSpaceController.deleteById)
 
 module.exports = route;

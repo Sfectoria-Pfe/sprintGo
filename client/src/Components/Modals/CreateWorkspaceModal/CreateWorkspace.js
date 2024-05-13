@@ -5,16 +5,13 @@ import * as style from "./Styled";
 import PhotoCardComponent from "./PhotoCardComponent";
 import TitleCardComponent from "./TitleCardComponent";
 import { useDispatch, useSelector } from "react-redux";
-import { createworkspace } from "../../../Services/workSpacesService";
+import  {createworkspace}  from "../../../Services/workSpacesService";
 import LoadingScreen from "../../LoadingScreen";
 
 
 export default function CreateWorkspace(props) {
   const dispatch = useDispatch();
   const creating = useSelector((state) => state.workspaces.creating);
-  const {  } = useSelector(
-    (state) => state.workspaces
-  );
 
   const [open, setOpen] = React.useState(true);
 

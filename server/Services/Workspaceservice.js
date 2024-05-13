@@ -1,6 +1,7 @@
 
 const WorkSpaceModel = require('../Models/workSpaceModel');
 const userModel = require('../Models/userModel');
+const workspaceModel =require ('../Models/workSpaceModel')
 
 const create = async (req, callback) => {
 	try {
@@ -126,42 +127,36 @@ const updateWorkSpaceTitle = async (WorkSpaceId, title, user, callback) => {
 	}
 };
 
-// const deleteById = async (boardId, workspaceId, user, callback) => {
-// 	try {
-// 		// Get board to check the parent of board is this board
-// 		const workspace = await workspaceModel.findById(workspaceId);
 
-// 		// Validate the parent of the board
-// 		const validate = workspace.boards.filter((board) => board.id === boardId);
-// 		if (!validate) return callback({ errMessage: 'board or workspace informations are wrong' });
 
-// 		// Validate whether the owner of the board is the user who sent the request.
-// 		if (!user.workspace.filter((workspace) => workspace === workspaceId))
-// 			return callback({ errMessage: 'You cannot delete a board that does not hosted by your boards' });
+const deleteById = async (workspaceId,user, callback) => {
+	try {
+		// Get models
+		
+	
+		const workspace = await workspaceModel.findById(workspaceId);
+		if (!workspace) {
+            return callback({ errMessage: 'Workspace not found' });
+        }
 
-// 		// Delete the board
-// 		const result = await boardModel.findByIdAndDelete(boardId);
+		// Delete the board
+		const result = await workspaceModel.findByIdAndDelete(workspaceId);
 
-// 		// Delete the board from boards of board
-// 		workspace.boards = workspace.boards.filter((board) => board.toString() !== boardId);
+		
+		// // Add activity log to board
+		// workspace.activity.unshift({
+		// 	user: user._id,
+		// 	name: user.name,
+		// 	action: `deleted ${result.title} from ${workspace.title}`,
+		// 	color: user.color,
+		// });
+		// await workspace.save();
 
-// 		// Add activity log to board
-// 		workspace.activity.unshift({
-// 			user: user._id,
-// 			name: user.name,
-// 			action: `deleted ${result.title} from this board`,
-// 			color: user.color,
-// 		});
-// 		workspace.save();
-
-// 		// Delete all cars in the board
-// 		await cardModel.deleteMany({ owner: boardId });
-
-// 		return callback(false, result);
-// 	} catch (error) {
-// 		return callback({ errMessage: 'Something went wrong', details: error.message });
-// 	}
-// };
+		return callback(false, { message: 'Success' });
+	} catch (error) {
+		return callback({ errMessage: 'Something went wrong', details: error.message });
+	}
+};
 
 
 const addMember = async (id, members, user, callback) => {
@@ -208,6 +203,6 @@ module.exports = {
 	getById,
 	getActivityById,
 	updateWorkSpaceTitle,
-
+	deleteById,
 	addMember,
 };

@@ -10,6 +10,7 @@ const initialState = {
 	loading: true,
 	
 	activityLoading: false,
+	allWorkspaces: [],
 };
 
 const workspaceSlice = createSlice({
@@ -41,7 +42,14 @@ const workspaceSlice = createSlice({
 		
 		addMembers: (state,action)=>{
 			state.members = action.payload;
-		}
+		},
+		successCreatingworkspace: (state, action) => {
+			state.allWorkspaces.push(action.payload);
+		},
+		successDeletingworkspace: (state, action) => {
+			state.allWorkspaces = state.allWorkspaces.filter((workspace) => workspace._id !== action.payload);
+		},
+
 	},
 });
 
@@ -51,7 +59,8 @@ export const {
 	updateTitle,
 	setActivityLoading,
 	updateActivity,
-
+	successCreatingworkspace,
+	successDeletingworkspace,
 	addMembers,
 } = workspaceSlice.actions;
 export default workspaceSlice.reducer;

@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 import LoadingScreen from "../../LoadingScreen";
 import CreateBoard from "../../Modals/CreateBoardModal/CreateBoard";
 import { useParams } from 'react-router-dom';
-
+import Topbar from "./TopBar/TopBar"
 
 
 const BoardsW = () => {
@@ -49,8 +49,9 @@ const BoardsW = () => {
      
 
         <Navbar  searchString={searchString} setSearchString={setSearchString} />
+      
         <Wrapper>
-       
+        <Topbar />
           <Title>Your Boards</Title>
           
         

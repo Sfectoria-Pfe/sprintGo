@@ -217,6 +217,32 @@ const addMember = async (id, members, user, callback) => {
 	} catch (error) {
 		return callback({ message: 'Something went wrong', details: error.message });
 	}
+	
+};
+const deleteById = async (workspaceId,boardId, user, callback) => {
+	try {
+		// Get models
+		
+		const board = await boardModel.findById(boardId);
+		// const workspace = await workspaceModel.findById(workspaceId);
+		
+		// Delete the board
+		const result = await boardModel.findByIdAndDelete(boardId);
+
+		
+		// // Add activity log to board
+		// workspace.activity.unshift({
+		// 	user: user._id,
+		// 	name: user.name,
+		// 	action: `deleted ${result.title} from ${workspace.title}`,
+		// 	color: user.color,
+		// });
+		// await workspace.save();
+
+		return callback(false, { message: 'Success' });
+	} catch (error) {
+		return callback({ errMessage: 'Something went wrong', details: error.message });
+	}
 };
 
 module.exports = {
@@ -228,4 +254,5 @@ module.exports = {
 	updateBoardDescription,
 	updateBackground,
 	addMember,
+	deleteById,
 };
