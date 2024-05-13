@@ -21,7 +21,7 @@ const Workspaces = () => {
 
 
   const handleClick = (e) => {
-  navigate(`/Workspace/${e.target.id}`)
+  navigate(`/workspace/${e.target.id}`)
   }
 
   useEffect(() => {

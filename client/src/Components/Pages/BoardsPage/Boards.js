@@ -8,6 +8,18 @@ import CreateBoard from "../../Modals/CreateBoardModal/CreateBoard";
 import Sidebar from "../../sidebar/sidebar";
 import { useNavigate } from "react-router-dom";
 import LoadingScreen from "../../LoadingScreen";
+import { useParams } from 'react-router-dom';
+
+export function WorkspaceId() {
+  const { workspaceId } = useParams();
+  console.log("Workspace ID:", workspaceId);
+
+  return (
+    <>
+      <h1>Workspace ID: {workspaceId}</h1>
+    </>
+  );
+}
 
 const Boards = () => {
   const navigate = useNavigate()
@@ -17,6 +29,8 @@ const Boards = () => {
   
   const [searchString, setSearchString] = useState('');
 
+  const { workspaceId } = useParams();
+  console.log("Workspace ID:", workspaceId);
 
   const handleClick = (e) => {
   navigate(`/board/${e.target.id}`)
@@ -39,7 +53,8 @@ const Boards = () => {
         <Navbar  searchString={searchString} setSearchString={setSearchString} />
         <Wrapper>
        
-          <Title>Your Boards</Title>
+          <Title>All Boards</Title>
+          
         
           {!pending &&
             boardsData.length>0 &&

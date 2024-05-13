@@ -1,20 +1,22 @@
 import React, { useEffect, useState } from "react";
 import Index from "./landingPage/landingPage";
 import Login from "./Components/Pages/LoginPage/Login";
-import Register from "./Components/Pages/RegisterPage/Register";
+
 import Alert from "./Components/AlertSnackBar";
 import { BrowserRouter, Routes, Switch,Route } from "react-router-dom";
 import Boards from "./Components/Pages/BoardsPage/Boards";
-import ProtectedRoute from "./Utils/ProtectedRoute";
+
 import { loadUser } from "./Services/userService";
 import Store from "./Redux/Store";
-import FreeRoute from "./Utils/FreeRoute";
+
 import Board from "./Components/Pages/BoardPage/Board";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Sidebar from "./Components/sidebar/sidebar";
+
 import Main from "./Main";
 import { useSelector } from "react-redux";
 import Workspaces from "./Components/Pages/WorkspacesPage/Workspaces"
+import BoardsW from "./Components/Pages/BoardsWorkspacePage/Boards"
+
 import  Workspace  from "./Components/Pages/WorkspacesPage/Workspaces";
 
 const App = () => {
@@ -35,10 +37,11 @@ const App = () => {
         {user?.isAuthenticated ? (
           <Route path="/" element={<Main />}>
             <Route index element={<Workspaces />} />
-            <Route path="/boards" element={<Boards />} />
+           
             <Route path="/workspace" element={<Workspaces />} />
-            <Route path="/workspace/:id" element={<Boards />} />
+            <Route path="/workspace/:id" element={<BoardsW />} />
             <Route path="board/:id" element={<Board />} />
+            <Route path="/boards" element ={<Boards/>} />
           </Route>
         ) : (
           <>

@@ -178,7 +178,7 @@ export default function Sidebar() {
               <ListItemContent >
                 <Typography level="title-sm"component={Link}
         to="/boards"
-              href="/boards">Dashboard</Typography>
+              href="/boards">All Boards</Typography>
               </ListItemContent>
             </ListItemButton>
           </ListItem>

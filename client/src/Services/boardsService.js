@@ -15,6 +15,7 @@ const baseUrl = "http://localhost:3001/board";
 export const getBoards = async (fromDropDown,dispatch) => {
   if(!fromDropDown)dispatch(startFetchingBoards());
   try {
+   
     const res = await axios.get(baseUrl + "/");
     setTimeout(() => {
       dispatch(successFetchingBoards({ boards: res.data }));
@@ -45,7 +46,7 @@ export const createBoard = async (props, dispatch) => {
     return;
   }
   try {
-    const res = await axios.post(baseUrl + "/create", props);
+    const res = await axios.post("http://localhost:3001/board/663d66bc9ae603a6352ff40a/create",props);
     dispatch(addNewBoard(res.data));
     dispatch(successCreatingBoard(res.data));
     dispatch(
@@ -70,7 +71,8 @@ export const createBoard = async (props, dispatch) => {
 export const getBoard = async (boardId,dispatch) => {
   dispatch(setLoading(true));
   try {
-    const res = await axios.get(baseUrl + "/" + boardId);
+     const res = await axios.get(baseUrl + "/" + boardId);
+    //const res = await axios.get("http://localhost:3001/board/663d66bc9ae603a6352ff40a/get"+ boardId);
       dispatch(successFetchingBoard(res.data));    
     setTimeout(() => {
       dispatch(setLoading(false));      

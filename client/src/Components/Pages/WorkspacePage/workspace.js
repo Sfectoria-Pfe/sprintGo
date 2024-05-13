@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getBoards } from "../../../Services/boardsService";
+import { getBoards } from "../../../Services/workspaceService";
 import Navbar from "../../Navbar";
 import { Container, Wrapper, Title, Board, AddBoard } from "./Styled";
 import CreateBoard from "../../Modals/CreateBoardModal/CreateBoard";

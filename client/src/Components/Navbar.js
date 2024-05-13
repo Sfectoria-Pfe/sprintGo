@@ -6,7 +6,7 @@ import { xs } from '../BreakPoints';
 import ProfileBox from './ProfileBox';
 import { useNavigate } from 'react-router-dom';
 import Sidebar from './sidebar/sidebar';
-import CreateBoard from './Modals/CreateBoardModal/CreateBoard';
+// import CreateBoard from './Modals/CreateBoardModal/CreateBoard';
 import sprintgo from "../Images/sprintgo2.gif"
 
 const Container = styled.div`
@@ -99,11 +99,11 @@ const Navbar = (props) => {
 				</DropdownContainer>
 			</LeftSide>
 			<RightSide>
-				<button className='btn btn-danger ' onClick={() => setOpenModal(true)}>Create</button>
+				{/* <button className='btn btn-danger ' onClick={() => setOpenModal(true)}>Create</button> */}
 				<SearchBar searchString={props.searchString} setSearchString={props.setSearchString} />
 				<ProfileBox />
 			</RightSide>
-			{openModal && <CreateBoard callback={handleModalClose} />}
+	{/* {openModal && <CreateBoard callback={handleModalClose} />} */}
 		</Container>
 		
 	);

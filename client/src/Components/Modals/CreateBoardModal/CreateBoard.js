@@ -5,12 +5,15 @@ import * as style from "./Styled";
 import PhotoCardComponent from "./PhotoCardComponent";
 import TitleCardComponent from "./TitleCardComponent";
 import { useDispatch, useSelector } from "react-redux";
-import { createBoard } from "../../../Services/boardsService";
+import { createBoard } from "../../../Services/boardsWorkspaceService";
 import LoadingScreen from "../../LoadingScreen";
+import { useParams } from 'react-router-dom';
 
 export default function CreateBoard(props) {
   const dispatch = useDispatch();
   const creating = useSelector((state) => state.boards.creating);
+  
+  const { id } = useParams();
   const { backgroundImages, smallPostfix } = useSelector(
     (state) => state.boards
   );
@@ -24,7 +27,7 @@ export default function CreateBoard(props) {
   let newBoard = {};
 
   const handleClick = async () => {
-    await createBoard(newBoard, dispatch);
+    await createBoard(id,newBoard, dispatch);
     props.callback();
     setBackground(backgroundImages[0] + smallPostfix);
   };
