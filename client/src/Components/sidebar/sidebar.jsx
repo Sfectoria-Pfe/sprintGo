@@ -62,6 +62,8 @@ function Toggler({ defaultExpanded = false, renderToggle, children }) {
 export default function Sidebar() {
   const dispatch = useDispatch();
   const boardsData = useSelector((state) => state.boards.boardsData);
+  const info = useSelector((state) => state.user.userInfo);
+
   console.log(boardsData, "this is boards data");
 
   const [selectedItemId, setSelectedItemId] = React.useState(null);
@@ -74,29 +76,30 @@ export default function Sidebar() {
   }, [dispatch]);
   return (
     <Sheet
-      className="Sidebar"
-      sx={{
-        position: { xs: "fixed", md: "fixed" },
-        transform: {
-          xs: "translateX(calc(100% * (var(--SideNavigation-slideIn, 0) - 1)))",
-          md: "none",
-        },
-        transition: "transform 0.4s, width 0.4s",
-        zIndex: 10000,
-        height: "100dvh",
-        width: "var(--Sidebar-width)",
-        top: 0,
-        p: 2,
-        flexShrink: 0,
-        display: "flex",
-        flexDirection: "column",
-        gap: 2,
-        borderRight: "1px solid",
-        borderColor: "divider",
-        paddingBottom: "50px",
-        marginTop: "50px",
-      }}
-    >
+    className="Sidebar"
+    sx={{
+      position: { xs: "fixed", md: "fixed" },
+      transform: {
+        xs: "translateX(calc(100% * (var(--SideNavigation-slideIn, 0) - 1)))",
+        md: "none",
+      },
+      transition: "transform 0.4s, width 0.4s",
+      zIndex: 10000,
+      height: "100dvh",
+      width: "var(--Sidebar-width)",
+      top: 0,
+      p: 2,
+      flexShrink: 0,
+      display: "flex",
+      flexDirection: "column",
+      gap: 2,
+      borderRight: "1px solid",
+      borderColor: "divider",
+      paddingBottom: "50px",
+      marginTop: "47px",
+      backgroundColor:"rgba(28, 41, 66, 0.95)"
+    }}
+  >
       <GlobalStyles
         styles={(theme) => ({
           ":root": {
@@ -130,16 +133,16 @@ export default function Sidebar() {
         <IconButton variant="soft" color="primary" size="sm">
           <BrightnessAutoRoundedIcon />
         </IconButton>
-        <Typography level="title-lg">Acme Co.</Typography>
+        {/* <Typography level="title-lg">Acme Co.</Typography> */}
         <CssVarsProvider>
-          <ColorSchemeToggle sx={{ ml: "auto" }} />
+          {/* <ColorSchemeToggle sx={{ ml: "auto" }} /> */}
         </CssVarsProvider>
       </Box>
-      <Input
+      {/* <Input
         size="sm"
         startDecorator={<SearchRoundedIcon />}
         placeholder="Search"
-      />
+      /> */}
       <Box
         sx={{
           minHeight: 0,
@@ -182,7 +185,7 @@ export default function Sidebar() {
               </ListItemContent>
             </ListItemButton>
           </ListItem>
-       
+{/*        
           <ListItem>
             <ListItemButton onClick={() => handleItemClick('orders')}
           selected={selectedItemId === 'orders'}>
@@ -191,7 +194,7 @@ export default function Sidebar() {
                 <Typography level="title-sm">Orders</Typography>
               </ListItemContent>
             </ListItemButton>
-          </ListItem>
+          </ListItem> */}
 
           <ListItem nested>
             <Toggler
@@ -232,7 +235,7 @@ export default function Sidebar() {
             <ListItemButton
               role="menuitem"
               component="a"
-              href="/aaaaaaaaaaaaaaaaaaaaaa"
+              href="/chat"
             >
               <QuestionAnswerRoundedIcon />
               <ListItemContent>
@@ -244,7 +247,7 @@ export default function Sidebar() {
             </ListItemButton>
           </ListItem>
 
-          <ListItem nested>
+          {info?.role==="admin"&&<ListItem nested>
             <Toggler
               renderToggle={({ open, setOpen }) => (
                 <ListItemButton onClick={() => setOpen(!open)}>
@@ -263,20 +266,23 @@ export default function Sidebar() {
                   <ListItemButton
                     role="menuitem"
                     component="a"
-                    href="/joy-ui/getting-started/templates/profile-dashboard/"
+                    href="/create"
                   >
-                    My profile
+                    Create a new user
                   </ListItemButton>
                 </ListItem>
                 <ListItem>
-                  <ListItemButton>Create a new user</ListItemButton>
+                  <ListItemButton
+                  role="menuitem"
+                    component="a"
+                    href="/manage"
+                  
+                  >Manage Users</ListItemButton>
                 </ListItem>
-                <ListItem>
-                  <ListItemButton>Roles & permission</ListItemButton>
-                </ListItem>
+                
               </List>
             </Toggler>
-          </ListItem>
+          </ListItem>}
         </List>
 
         <List

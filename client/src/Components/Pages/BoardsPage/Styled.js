@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-	background-image: url('https://img.freepik.com/photos-premium/surface-texture-pierre-blanche-ton-gris-blanc-rugueux-utilisez-ceci-pour-fond-ecran-image-arriere-plan-il-y-espace-vide-pour-textx9_661047-1080.jpg?w=900');
+	background-color: #F0EEE9;
 	background-position: 50%;
 	background-size: cover;
 	height: 100vh;

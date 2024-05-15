@@ -12,7 +12,8 @@ import sprintgo from "../Images/sprintgo2.gif"
 const Container = styled.div`
 	height: 3rem;
 	width: 100%;
-	background-color: #4C5967;
+	
+	background-color: rgba(28, 41, 66, 0.3);
 	backdrop-filter: blur(24px);
 	position: fixed;
 	top: 0;
@@ -20,6 +21,7 @@ const Container = styled.div`
 	display: flex;
 	flex-direction: row;
 	align-items: center;
+	
 	justify-content: space-between;
 	padding: 0.5rem 1rem;
 	gap: 0.5rem;

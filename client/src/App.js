@@ -16,6 +16,9 @@ import Main from "./Main";
 import { useSelector } from "react-redux";
 import Workspaces from "./Components/Pages/WorkspacesPage/Workspaces"
 import BoardsW from "./Components/Pages/BoardsWorkspacePage/Boards"
+import Create from "./Components/admin/Create";
+import Manage from "./Components/admin/Manage";
+import JoyMessagesTemplate from "../src/chat/chat";
 
 import  Workspace  from "./Components/Pages/WorkspacesPage/Workspaces";
 
@@ -42,6 +45,10 @@ const App = () => {
             <Route path="/workspace/:id" element={<BoardsW />} />
             <Route path="board/:id" element={<Board />} />
             <Route path="/boards" element ={<Boards/>} />
+            <Route path ="/create" element={<Create/>} />
+            <Route path ="/manage" element={<Manage/>} />
+            <Route exact path="/chat" element={<JoyMessagesTemplate/>} />
+
           </Route>
         ) : (
           <>

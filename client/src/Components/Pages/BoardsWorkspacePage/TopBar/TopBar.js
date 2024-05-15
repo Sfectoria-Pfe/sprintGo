@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Deleteworkspace, workspaceTitleUpdate } from '../../../../Services/workspaceService';
 import RightDrawer from '../../../Drawers/RightDrawer/RightDrawer';
 import BasePopover from '../../../Modals/EditCardModal/ReUsableComponents/BasePopover';
-import InviteMembers from '../../../Modals/EditCardModal/Popovers/InviteMembers/InviteMembers';
+import InviteMembers from '../../../Modals/EditCardModal/Popovers/InviteMembers/inviteMembersWorkspace';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@mui/material';
