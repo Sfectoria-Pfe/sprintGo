@@ -22,7 +22,7 @@ export default function CreateWorkspace(props) {
   const handleClick = async () => {
     await createworkspace(newworkspace, dispatch);
     props.callback();
-   
+    window.location.reload();
   };
 
  

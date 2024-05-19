@@ -18,7 +18,9 @@ const MessageModel = require( "../Models/messageModel");
  const getMessages = async (req, res) => {
   const { chatId } = req.params;
   try {
+    console.log('chatId:', chatId);
     const result = await MessageModel.find({ chatId });
+    console.log('result:', result);
     res.status(200).json(result);
   } catch (error) {
     res.status(500).json(error);

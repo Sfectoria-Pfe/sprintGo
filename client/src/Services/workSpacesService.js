@@ -47,7 +47,7 @@ export const createworkspace = async (props, dispatch) => {
   try {
     const res = await axios.post(baseUrl + "/create", props);
     dispatch(addNewworkspace(res.data));
-    dispatch(successCreatingworkspacew(res.data));
+    dispatch(successCreatingworkspace(res.data));
     dispatch(
       openAlert({
         message: `${res.data.title} workspace has been successfully created`,

@@ -65,7 +65,7 @@ export default function Footer() {
                 
               />
             </Box>
-            <Typography variant="body2" fontWeight={600} gutterBottom>
+            {/* <Typography variant="body2" fontWeight={600} gutterBottom>
               Newsletter
             </Typography>
             <Typography variant="body2" color="text.secondary" mb={2}>
@@ -88,7 +88,7 @@ export default function Footer() {
               <Button variant="contained" color="primary" sx={{ flexShrink: 0 }}>
                 Subscribe
               </Button>
-            </Stack>
+            </Stack> */}
           </Box>
         </Box>
         <Box
@@ -98,7 +98,7 @@ export default function Footer() {
             gap: 1,
           }}
         >
-          <Typography variant="body2" fontWeight={600}>
+          {/* <Typography variant="body2" fontWeight={600}>
             Product
           </Typography>
           <Link color="text.secondary" href="#">
@@ -115,7 +115,7 @@ export default function Footer() {
           </Link>
           <Link color="text.secondary" href="#">
             FAQs
-          </Link>
+          </Link> */}
         </Box>
         <Box
           sx={{
@@ -124,7 +124,7 @@ export default function Footer() {
             gap: 1,
           }}
         >
-          <Typography variant="body2" fontWeight={600}>
+          {/* <Typography variant="body2" fontWeight={600}>
             Company
           </Typography>
           <Link color="text.secondary" href="#">
@@ -135,7 +135,7 @@ export default function Footer() {
           </Link>
           <Link color="text.secondary" href="#">
             Press
-          </Link>
+          </Link> */}
         </Box>
         <Box
           sx={{
@@ -144,7 +144,7 @@ export default function Footer() {
             gap: 1,
           }}
         >
-          <Typography variant="body2" fontWeight={600}>
+          {/* <Typography variant="body2" fontWeight={600}>
             Legal
           </Typography>
           <Link color="text.secondary" href="#">
@@ -155,7 +155,7 @@ export default function Footer() {
           </Link>
           <Link color="text.secondary" href="#">
             Contact
-          </Link>
+          </Link> */}
         </Box>
       </Box>
       <Box

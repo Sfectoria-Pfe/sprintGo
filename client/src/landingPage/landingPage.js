@@ -45,17 +45,8 @@ export default function LandingPage() {
        
       <Hero />
      
-        <LogoCollection />
-        <Features />
-        <Divider />
-        <Testimonials />
-        <Divider />
-        <Highlights />
-        <Divider />
-        <Pricing />
-        <Divider />
-        <FAQ />
-        <Divider />
+       
+        
         <Footer />
       </Box>
       

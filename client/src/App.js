@@ -19,7 +19,7 @@ import BoardsW from "./Components/Pages/BoardsWorkspacePage/Boards"
 import Create from "./Components/admin/Create";
 import Manage from "./Components/admin/Manage";
 import JoyMessagesTemplate from "../src/chat/chat";
-
+import Chat from "./Components/chat/Chat";
 import  Workspace  from "./Components/Pages/WorkspacesPage/Workspaces";
 
 const App = () => {
@@ -48,7 +48,7 @@ const App = () => {
             <Route path ="/create" element={<Create/>} />
             <Route path ="/manage" element={<Manage/>} />
             <Route exact path="/chat" element={<JoyMessagesTemplate/>} />
-
+            <Route path="/newchat" element={<Chat />}/>
           </Route>
         ) : (
           <>

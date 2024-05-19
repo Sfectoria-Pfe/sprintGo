@@ -51,7 +51,7 @@ export default function Hero() {
                   theme.palette.mode === 'light' ? 'primary.main' : 'primary.light',
               }}
             >
-             SprintgGo
+             SprintGo
             </Typography>
           </Typography>
           <Typography
@@ -71,7 +71,7 @@ export default function Hero() {
             sx={{ pt: 2, width: { xs: '100%', sm: 'auto' } }}
           >
             
-            <Button variant="contained" color="primary">
+            <Button variant="contained" color="primary"  href="https://github.com">
               Start now
             </Button>
           </Stack>
@@ -83,7 +83,7 @@ export default function Hero() {
             .
           </Typography>
         </Stack>
-        <Box
+        {/* <Box
           id="image"
           sx={(theme) => ({
             mt: { xs: 8, sm: 10 },
@@ -106,7 +106,7 @@ export default function Hero() {
                 ? `0 0 12px 8px ${alpha('#9CCCFC', 0.2)}`
                 : `0 0 24px 12px ${alpha('#033363', 0.2)}`,
           })}
-        />
+        /> */}
       </Container>
     </Box>
   );

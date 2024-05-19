@@ -5,6 +5,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const ManageUsers = () => {
   const [users, setUsers] = useState([]);
@@ -15,6 +16,9 @@ const ManageUsers = () => {
   const [updatedSurname, setUpdatedSurname] = useState('');
   const [updatedEmail, setUpdatedEmail] = useState('');
   const [updatedPassword, setUpdatedPassword] = useState('');
+  const [alertMessage, setAlertMessage] = useState('');
+  const [alertType, setAlertType] = useState('');
+  const navigate = useNavigate();
   const info = useSelector((state) => state.user.userInfo);
   console.log('this is user form list',info)
   useEffect(() => {
@@ -36,6 +40,11 @@ const ManageUsers = () => {
       await axios.delete(`http://localhost:3001/user/delete-user/${userId}`);
       fetchUsers();
       setShowDeleteConfirmation(false);
+      setAlertType('success');
+      setTimeout(() => {
+        setAlertMessage('done');
+        
+      }, 1000); 
     } catch (error) {
       console.error('Error deleting user:', error);
     }
@@ -182,6 +191,13 @@ const ManageUsers = () => {
           <Button onClick={updateUser} color="primary">Update</Button>
         </DialogActions>
       </Dialog>
+      {alertMessage && (
+          <Box mt={2} textAlign="center">
+            <Typography style={{ backgroundColor: alertType === 'success' ? 'green' : 'red', color: 'white', padding: '10px', borderRadius: '5px' }}>
+              {alertMessage}
+            </Typography>
+          </Box>
+        )}
     </Container>
   );
 };

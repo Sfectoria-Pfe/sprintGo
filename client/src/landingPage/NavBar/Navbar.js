@@ -115,7 +115,7 @@ function AppAppBar({ mode, toggleColorMode }) {
                 alt="logo of SpringGo"
               />
               <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                <MenuItem
+                {/* <MenuItem
                   onClick={() => scrollToSection('features')}
                   sx={{ py: '6px', px: '12px' }}
                 >
@@ -154,7 +154,7 @@ function AppAppBar({ mode, toggleColorMode }) {
                   <Typography variant="body2" color="text.primary">
                     FAQ
                   </Typography>
-                </MenuItem>
+                </MenuItem> */}
               </Box>
             </Box>
             <Box
