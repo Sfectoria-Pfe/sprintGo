@@ -1,4 +1,3 @@
-// src/App.js
 import React, { useEffect, useRef, useState } from 'react';
 import { Box, Container, Grid, Typography } from '@mui/material';
 import ChatList from './ChatList';
@@ -15,50 +14,69 @@ const Chat = () => {
   const [onlineUsers, setOnlineUsers] = useState([]);
   const [sendMessage, setSendMessage] = useState(null);
   const [receivedMessage, setReceivedMessage] = useState(null);
+  const [sendedMessage, setsendedMessage] = useState(null);
   const socket = useRef();
 
   // Connect to Socket.io and set up event listeners
   useEffect(() => {
     socket.current = io("ws://localhost:8800", { transports: ['websocket'] });
 
-    // Emit new user connection event
     socket.current.emit("new-user-add", userId);
 
-    // Listen for list of online users
     socket.current.on("get-users", (users) => {
       setOnlineUsers(users);
     });
 
-    // Listen for incoming messages
     socket.current.on("receive-message", (data) => {
       setReceivedMessage(data);
-      if (selectedChat && data.chatId === selectedChat._id) {
-        setSelectedChat((prevChat) => ({
-          ...prevChat,
-          messages: [...(prevChat.messages || []), data.message],
-        }));
-      }
     });
 
-    // Cleanup on component unmount
     return () => {
       socket.current.disconnect();
     };
-  }, [userId, selectedChat]);
+  }, [userId]);
 
-  // Send message through socket
   useEffect(() => {
     if (sendMessage) {
       socket.current.emit("send-message", sendMessage);
     }
   }, [sendMessage]);
 
-  const handleNewMessage = (message) => {
-    if (selectedChat) {
+  // Update selected chat's messages with the received message
+  useEffect(() => {
+    if (receivedMessage && selectedChat && receivedMessage.chatId === selectedChat._id) {
       setSelectedChat((prevChat) => ({
         ...prevChat,
-        messages: [...(prevChat.messages || []), message],
+        messages: [...(prevChat.messages || []), receivedMessage.message],
       }));
+    }
+  }, [receivedMessage]);
+
+  useEffect(() => {
+    if (sendedMessage && selectedChat && sendedMessage.chatId === selectedChat._id) {
+      setSelectedChat((prevChat) => ({
+        ...prevChat,
+        messages: [...(prevChat.messages || []), sendedMessage.message],
+      }));
+    }
+  }, [sendedMessage]);
+
+
+
+  const handleNewMessage = (message) => {
+    if (selectedChat) {
+      const updatedChat = {
+        ...selectedChat,
+        messages: [...(selectedChat.messages || []), message],
+      };
+      setSelectedChat(updatedChat);
+
+      setSendMessage({
+        chatId: selectedChat._id,
+        senderId: userId,
+        receiverId: selectedChat.members.find((id) => id !== userId),
+        message: message,
+      });
     }
   };
 
@@ -78,22 +96,14 @@ const Chat = () => {
             {selectedChat ? (
               <>
                 <Box sx={{ flexGrow: 1, overflowY: 'auto', mb: 2 }}>
-                  <ChatWindow  
-                    currentUser={userId}
+                  <ChatWindow
                     chatId={selectedChat._id}
-                   
-                    setSendMessage={setSendMessage}
                     receivedMessage={receivedMessage}
-                 
-                    senderId={userId}
                     onNewMessage={handleNewMessage}
                   />
                 </Box>
                 <Box>
                   <MessageInput
-                    currentUser={userId}
-                    setSendMessage={setSendMessage}
-                    receivedMessage={receivedMessage}
                     chatId={selectedChat._id}
                     senderId={userId}
                     onNewMessage={handleNewMessage}

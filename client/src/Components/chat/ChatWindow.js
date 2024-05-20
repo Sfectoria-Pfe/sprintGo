@@ -1,11 +1,12 @@
-// src/components/ChatWindow.js
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Box, Typography, Avatar, Paper, Divider } from '@mui/material';
-import { styled } from '@mui/system';
+import { Box, Typography, Avatar, Paper } from '@mui/material';
+import { useSelector } from 'react-redux';
 
-const ChatWindow = ({ chatId }) => {
+const ChatWindow = ({ chatId, receivedMessage }) => {
   const [messages, setMessages] = useState([]);
+  const userInfo = useSelector((state) => state.user.userInfo);
+  const userId = userInfo._id;
 
   useEffect(() => {
     const fetchMessages = async () => {
@@ -19,11 +20,21 @@ const ChatWindow = ({ chatId }) => {
     fetchMessages();
   }, [chatId]);
 
+  useEffect(() => {
+    if (receivedMessage && receivedMessage.chatId === chatId) {
+      setMessages((prevMessages) => [...prevMessages, receivedMessage.message]);
+    }
+  }, [receivedMessage, chatId]);
+
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', height: '80vh', padding: 2 }}>
       <Typography variant="h6" gutterBottom>Chat Messages</Typography>
-      {messages.map((message, index) => (
-        <MessageBubble key={message._id} message={message} isSender={index % 2 === 0} />
+      {messages.map((message) => (
+        <MessageBubble
+          key={message._id}
+          message={message}
+          isSender={message.senderId === userId}
+        />
       ))}
     </Box>
   );
@@ -50,7 +61,9 @@ const MessageBubble = ({ message, isSender }) => {
           backgroundColor: isSender ? 'primary.light' : 'grey.300',
         }}
       >
-        <Avatar sx={{ marginRight: 1 }}>{message.senderId[0]}</Avatar>
+        <Avatar sx={{ marginRight: isSender ? 0 : 1, marginLeft: isSender ? 1 : 0 }}>
+          {message.senderId[0]}
+        </Avatar>
         <Box>
           <Typography variant="body2">{message.text}</Typography>
           <Typography variant="caption" color="textSecondary">{message.senderId}</Typography>

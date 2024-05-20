@@ -21,7 +21,7 @@ import Manage from "./Components/admin/Manage";
 import JoyMessagesTemplate from "../src/chat/chat";
 import Chat from "./Components/chat/Chat";
 import  Workspace  from "./Components/Pages/WorkspacesPage/Workspaces";
-
+import EditProfile from "./Components/Pages/EditProfile/EditProfile"
 const App = () => {
   const [token, setToken] = useState("");
   const [connected, setConnected] = useState("");
@@ -49,6 +49,7 @@ const App = () => {
             <Route path ="/manage" element={<Manage/>} />
             <Route exact path="/chat" element={<JoyMessagesTemplate/>} />
             <Route path="/newchat" element={<Chat />}/>
+            <Route path="/editprofile" element={<EditProfile />} />
           </Route>
         ) : (
           <>

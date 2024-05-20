@@ -11,7 +11,7 @@ router.post("/get-user-with-email", userController.getUserWithMail);
 router.post("/add-user",verifyAdminToken,userController.addUser);
 router.put("/update-admin/:id",verifyAdminToken,userController.updateUser);
 router.delete("/delete-user/:id", verifyAdminToken, userController.deleteUser);
-router.put("/update-user/",userController.updateUser);
+router.put("/update-user/:id",userController.updateUser);
 
 
 

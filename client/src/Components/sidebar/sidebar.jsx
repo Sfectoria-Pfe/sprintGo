@@ -60,6 +60,11 @@ function Toggler({ defaultExpanded = false, renderToggle, children }) {
 }
 
 export default function Sidebar() {
+  const userInfo = useSelector((state) => state.user.userInfo);
+  const name = useSelector((state) => state.user.userInfo.name);
+  const email = useSelector((state) => state.user.userInfo.email);
+  const color = useSelector((state) => state.user.userInfo.color);
+  const { _id: userId } = userInfo;
   const dispatch = useDispatch();
   const boardsData = useSelector((state) => state.boards.boardsData);
   const info = useSelector((state) => state.user.userInfo);
@@ -296,7 +301,9 @@ export default function Sidebar() {
           }}
         >
           <ListItem sx={{ marginTop: "30px" }}>
-            <ListItemButton>
+            <ListItemButton role="menuitem"
+              component="a"
+              href="/editprofile">
               <SettingsRoundedIcon />
               Settings
             </ListItemButton>
@@ -305,14 +312,12 @@ export default function Sidebar() {
       </Box>
       <Divider />
       <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
-        <Avatar
-          variant="outlined"
-          size="sm"
-          src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=286"
-        />
+      <Avatar sx={{ width: 32, height: 32, bgcolor: color, fontSize: '0.875rem', fontWeight: '800' }}>
+							{name[0]}
+						</Avatar>
         <Box sx={{ minWidth: 0, flex: 1 }}>
-          <Typography level="title-sm">User</Typography>
-          <Typography level="body-xs">user@test.com</Typography>
+          <Typography level="title-sm">{name}</Typography>
+          <Typography level="body-xs">{email}</Typography>
         </Box>
         <IconButton size="sm" variant="plain" color="neutral">
           <LogoutRoundedIcon />

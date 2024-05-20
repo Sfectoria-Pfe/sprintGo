@@ -1,4 +1,3 @@
-// src/components/MessageInput.js
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Box, TextField, Button } from '@mui/material';
@@ -17,7 +16,7 @@ const MessageInput = ({ chatId, senderId, onNewMessage }) => {
   };
 
   return (
-    <Box>
+    <Box sx={{ display: 'flex', alignItems: 'center' }}>
       <TextField
         value={text}
         onChange={(e) => setText(e.target.value)}
@@ -25,14 +24,8 @@ const MessageInput = ({ chatId, senderId, onNewMessage }) => {
         variant="outlined"
         size="small"
         fullWidth
-        sx={{ flexGrow: 1 }}
       />
-      <Button onClick={handleSendMessage} variant="contained" color="primary"  size="medium"
-        sx={{
-          height: '100%',
-          ml: 1,
-          minWidth: '100px',
-        }}>
+      <Button onClick={handleSendMessage} variant="contained" color="primary" sx={{ ml: 1 }}>
         Send
       </Button>
     </Box>
