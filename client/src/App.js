@@ -3,7 +3,7 @@ import Index from "./landingPage/landingPage";
 import Login from "./Components/Pages/LoginPage/Login";
 
 import Alert from "./Components/AlertSnackBar";
-import { BrowserRouter, Routes, Switch,Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Boards from "./Components/Pages/BoardsPage/Boards";
 
 import { loadUser } from "./Services/userService";
@@ -20,10 +20,10 @@ import Create from "./Components/admin/Create";
 import Manage from "./Components/admin/Manage";
 import JoyMessagesTemplate from "../src/chat/chat";
 import Chat from "./Components/chat/Chat";
-import  Workspace  from "./Components/Pages/WorkspacesPage/Workspaces";
+
 import EditProfile from "./Components/Pages/EditProfile/EditProfile"
 const App = () => {
-  const [token, setToken] = useState("");
+ 
   const [connected, setConnected] = useState("");
   const user = useSelector((state) => state.user);
 
@@ -50,9 +50,12 @@ const App = () => {
             <Route exact path="/chat" element={<JoyMessagesTemplate/>} />
             <Route path="/newchat" element={<Chat />}/>
             <Route path="/editprofile" element={<EditProfile />} />
+           
+
           </Route>
         ) : (
           <>
+
             <Route path="/" element={<Index />} />
             <Route path="/login" element={<Login setConnected={setConnected}/>} />
           </>
