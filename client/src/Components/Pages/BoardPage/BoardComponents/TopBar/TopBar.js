@@ -36,8 +36,9 @@ const TopBar = () => {
         if (window.confirm('Are you sure you want to delete this board?')) {
             Deleteboard(id, dispatch).then(() => {
 				console.log("testing navigate");
-				navigate(-1); 
-			});;
+				
+			});
+			navigate(-1); 
         }
     };
 

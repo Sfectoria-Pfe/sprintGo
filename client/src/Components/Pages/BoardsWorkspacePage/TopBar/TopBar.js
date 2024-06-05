@@ -30,11 +30,11 @@ const TopBar = () => {
 	};
 	const navigate = useNavigate();
 	const handleDeleteworkspace = () => {
-        if (window.confirm('Are you sure you want to delete this board?')) {
+        if (window.confirm('Are you sure you want to delete this workspace?')) {
             Deleteworkspace(id, dispatch).then(() => {
-				console.log("testing navigate");
-				navigate(-1); 
+				
 			});;
+			navigate(-1); 
         }
     };
 	return (
@@ -66,7 +66,7 @@ const TopBar = () => {
 			</style.LeftWrapper>
 
 			<style.RightWrapper>
-			<Button onClick={handleDeleteworkspace} variant="contained" color="error">Delete Workspace</Button>
+			<Button onClick={handleDeleteworkspace } variant="contained" color="error">Delete Workspace</Button>
 
 				
 			</style.RightWrapper>

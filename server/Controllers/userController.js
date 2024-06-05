@@ -57,6 +57,18 @@ const getUser = async (req, res) => {
   });
 };
 
+const getUserById = async (req, res) => {
+  const {id}= req.params
+  console.log(id)
+  try {
+     const user = await userModel.findById(id);
+  res.send(user)
+  } catch (err) {
+    res.send(err)
+  }
+};
+
+
 const getUserWithMail = async (req, res) => {
   const { email } = req.body;
   await userService.getUserWithMail(email, (err, result) => {
@@ -132,4 +144,5 @@ module.exports = {
   deleteUser,
   updateUser,
   getAllUsers,
+  getUserById,
 };

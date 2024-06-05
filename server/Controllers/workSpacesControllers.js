@@ -86,12 +86,13 @@ const deleteById = async (req, res) => {
 	const user = req.user;
 	const { workspaceId } = req.params;
 	const workspace = await workSpaceModel.findById({_id:workspaceId})
-	if(workspace.boards.length) {
+	if(workspace?.boards?.length) {
 		for(let id of workspace.boards){
 			await boardModel.findByIdAndDelete(id)
 		}
-		await workSpaceModel.findByIdAndRemove({_id:workspaceId})
+		
 	}
+	await workSpaceModel.findByIdAndRemove({_id:workspaceId})
 };
 module.exports = {
 	create,
