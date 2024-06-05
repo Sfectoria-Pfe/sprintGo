@@ -44,10 +44,10 @@ const BoardsW = () => {
 
 
   const userInfo = useSelector((state) => state.user.userInfo);
-	const boardsData = useSelector((state) => state.boards.boardsData)
-	const isOwner = boardsData.some(board => {
-		return board.members.some(member => member.user === userInfo._id && member.role === 'owner');
-	  });
+	// const boardsData = useSelector((state) => state.boards.boardsData)
+	// const isOwner = boardsData.some(board => {
+	// 	return board.members.some(member => member.user === userInfo._id && member.role === 'owner');
+	//   });
 
   return (
     <>
@@ -58,7 +58,8 @@ const BoardsW = () => {
         <Navbar  searchString={searchString} setSearchString={setSearchString} />
       
         <Wrapper>
-        {isOwner && <Topbar /> }
+        {/* {isOwner && <Topbar /> } */}
+        <Topbar />
           <Title>Your Boards</Title>
           
         

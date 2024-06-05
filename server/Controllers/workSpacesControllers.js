@@ -1,3 +1,5 @@
+const boardModel = require('../Models/boardModel');
+const workSpaceModel = require('../Models/workSpaceModel');
 const workSpaceService = require('../Services/Workspaceservice');
 
 const create = async (req, res) => {
@@ -83,12 +85,13 @@ const deleteById = async (req, res) => {
 	// deconstruct the params
 	const user = req.user;
 	const { workspaceId } = req.params;
-
-	// Call the card service
-	await workSpaceService.deleteById(workspaceId,   user, (err, result) => {
-		if (err) return res.status(500).send(err);
-		return res.status(200).send(result);
-	});
+	const workspace = await workSpaceModel.findById({_id:workspaceId})
+	if(workspace.boards.length) {
+		for(let id of workspace.boards){
+			await boardModel.findByIdAndDelete(id)
+		}
+		await workSpaceModel.findByIdAndRemove({_id:workspaceId})
+	}
 };
 module.exports = {
 	create,

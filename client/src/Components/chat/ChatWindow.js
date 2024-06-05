@@ -66,7 +66,7 @@ const MessageBubble = ({ message, isSender }) => {
         </Avatar> */}
         <Box>
           <Typography variant="body2">{message.text}</Typography>
-          <Typography variant="caption" color="textSecondary">{message.senderId}</Typography>
+          {/* <Typography variant="caption" color="textSecondary">{message.senderId}</Typography> */}
         </Box>
       </Box>
     </Box>

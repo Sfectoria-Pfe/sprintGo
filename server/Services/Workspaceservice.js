@@ -2,6 +2,7 @@
 const WorkSpaceModel = require('../Models/workSpaceModel');
 const userModel = require('../Models/userModel');
 const workspaceModel =require ('../Models/workSpaceModel')
+const boardModel =require('../Models/boardModel')
 
 const create = async (req, callback) => {
 	try {
@@ -141,7 +142,9 @@ const deleteById = async (workspaceId,user, callback) => {
 
 		// Delete the board
 		const result = await workspaceModel.findByIdAndDelete(workspaceId);
-
+		 	
+			
+		
 		
 		// // Add activity log to board
 		// workspace.activity.unshift({

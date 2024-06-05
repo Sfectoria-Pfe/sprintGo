@@ -59,6 +59,7 @@ console.log(chatMessages,"those are the msgs")
       console.log(data,"received ")
       // setNewMessages(data)
       // setReceivedMessage(data)
+      setChatMessages(data)
     });
 
     return () => {
@@ -66,18 +67,10 @@ console.log(chatMessages,"those are the msgs")
     };
   }, [userId]);
 
-  useEffect(() => {
-    if (chatMessages) {
-      socket.current.emit("send-message", chatMessages);
-    }
-  }, [chatMessages]);
+ 
 
   // Update selected chat's messages with the received message
-  useEffect(() => {
-    if (receivedMessage) {
-      setChatMessages([...receivedMessage]);
-    }
-  }, [receivedMessage]);
+ 
 
   useEffect(() => {
     if (sendedMessage && selectedChat && sendedMessage.chatId === selectedChat._id) {
@@ -180,12 +173,7 @@ setChatMessages([...newMessages])
     
 
             try {
-              const response = await axios.post('http://localhost:3001/message',  {
-                chatId: chat?._id,
-                senderId: userId,
-                text: textAreaValue
-              });
-              setChatMessages([
+              socket.current.emit("send-message",[
                 ...chatMessages,
                 {
                   chatId: chat?._id,
@@ -193,6 +181,12 @@ setChatMessages([...newMessages])
                   text: textAreaValue
                 },
               ]);
+              const response = await axios.post('http://localhost:3001/message',  {
+                chatId: chat?._id,
+                senderId: userId,
+                text: textAreaValue
+              });
+           
               handleNewMessage(response.data);
               setText('');
               setError(false);

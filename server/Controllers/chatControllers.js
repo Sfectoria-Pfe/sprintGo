@@ -6,7 +6,9 @@ const createChat = async (req, res) => {
 
   const newChat = new ChatModel({
     members: [sender, receiver],
+    
   });
+ 
   try {
     const result = await newChat.save();
     res.status(200).json(result);

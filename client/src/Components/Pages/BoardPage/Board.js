@@ -63,9 +63,9 @@ const Board = (props) => {
 
 	const userInfo = useSelector((state) => state.user.userInfo);
 	const boardsData = useSelector((state) => state.boards.boardsData)
-	const isOwner = boardsData.some(board => {
-		return board.members.some(member => member.user === userInfo._id && member.role === 'owner');
-	  });
+	// const isOwner = boardsData.some(board => {
+	// 	return board.members.some(member => member.user === userInfo._id && member.role === 'owner');
+	//   });
 	return (
 		<>
 			<Navbar searchString={searchString} setSearchString={setSearchString} />
@@ -73,7 +73,8 @@ const Board = (props) => {
 				isImage={isImage}
 				bgImage={isImage ? backgroundImageLink.split('?')[0] : backgroundImageLink}
 			>
-				{isOwner && <TopBar />}
+				{/* {isOwner && <TopBar />} */}
+				<TopBar />
 				{(loading || loadingListService) && <LoadingScreen />}
 				<DragDropContext onDragEnd={onDragEnd}>
 					<Droppable droppableId='all-columns' direction='horizontal' type='column'>

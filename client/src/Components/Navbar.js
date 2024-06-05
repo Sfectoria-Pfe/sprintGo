@@ -101,7 +101,7 @@ const Navbar = (props) => {
 				</DropdownContainer>
 			</LeftSide>
 			<RightSide>
-				<SearchBar searchString={props.searchString} setSearchString={props.setSearchString} />
+				{/* <SearchBar searchString={props.searchString} setSearchString={props.setSearchString} /> */}
 				<ProfileBox />
 			</RightSide>
 		</Container>

@@ -29,6 +29,7 @@ const Chat = () => {
 
     socket.current.on("receive-message", (data) => {
       setReceivedMessage(data);
+      console.log(data,"this is the data")
     });
 
     return () => {

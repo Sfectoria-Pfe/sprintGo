@@ -74,7 +74,7 @@ const MessageInput = (props) => {
             </Stack>
           }
           onKeyDown={(event) => {
-            if (event.key === 'Enter' && (event.metaKey || event.ctrlKey)) {
+            if (event.key === 'Enter' && !event.shiftKey) {
               handleClick();
             }
           }}
